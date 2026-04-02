@@ -10,7 +10,7 @@ async function simulateConcurrentBookings(count) {
     for (let i = 1; i <= count; i++) {
         bookings.push(
             axios.post(`${BASE_URL}/bookings`, {
-                user_id: i,
+                user_id: 1, // Only 1 user is seeded in DB, so we simulate 105 rapid device requests from them 
                 event_id: EVENT_ID
             }).then(res => ({ status: 'Success', user: i }))
               .catch(err => ({ status: 'Failed', user: i, message: err.response?.data?.error || err.message }))
