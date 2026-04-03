@@ -42,7 +42,7 @@ router.get('/upcoming', EventController.getUpcomingEvents);
  *                 type: string
  *               description:
  *                 type: string
- *               event_date:
+ *               date:
  *                 type: string
  *                 format: date-time
  *               total_capacity:

@@ -14,10 +14,10 @@ class AttendanceService {
                 throw new Error('Invalid ticket code for this event');
             }
 
-            // 2. Prevent Duplicate Entries (Check if attendance already marked)
+            // 2. Prevent Duplicate Entries (Check if this user already marked attendance for this event)
             const [attendanceRows] = await connection.execute(
-                'SELECT id FROM attendance WHERE booking_id = ? FOR UPDATE', // Lock the attendance row
-                [booking.id]
+                'SELECT id FROM attendance WHERE user_id = ? AND event_id = ? FOR UPDATE', // Lock the attendance row
+                [booking.user_id, eventId]
             );
 
             if (attendanceRows.length > 0) {
@@ -26,15 +26,23 @@ class AttendanceService {
 
             // 3. Insert Attendance
             const [result] = await connection.execute(
-                'INSERT INTO attendance (booking_id) VALUES (?)',
-                [booking.id]
+                'INSERT INTO attendance (user_id, event_id) VALUES (?, ?)',
+                [booking.user_id, eventId]
             );
 
             await connection.commit();
 
+            // 4. Also fetch total tickets booked by user for validation feedback
+            const [totalTickets] = await connection.execute(
+                'SELECT COUNT(*) as count FROM bookings WHERE user_id = ? AND event_id = ?',
+                [booking.user_id, eventId]
+            );
+
             return {
                 id: result.insertId,
-                bookingId: booking.id,
+                userId: booking.user_id,
+                eventId,
+                totalTicketsBooked: totalTickets[0].count,
                 status: 'Success',
                 entryTime: new Date()
             };
@@ -49,7 +57,7 @@ class AttendanceService {
 
     static async getEventAttendance(eventId) {
         const [rows] = await pool.query(
-            'SELECT a.*, u.name, u.email FROM attendance a JOIN bookings b ON a.booking_id = b.id JOIN users u ON b.user_id = u.id WHERE b.event_id = ?',
+            'SELECT a.*, u.name, u.email FROM attendance a JOIN users u ON a.user_id = u.id WHERE a.event_id = ?',
             [eventId]
         );
         return rows;

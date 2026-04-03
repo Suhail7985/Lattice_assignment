@@ -34,8 +34,9 @@ const Attendance = () => {
         
         try {
             const response = await attendanceService.markAttendance(selectedEventId, ticketCode);
-            setSuccess(`Success! Entry marked at ${new Date(response.data.entryTime).toLocaleTimeString()}`);
-            setHistory([{ eventId: selectedEventId, ticketCode, time: response.data.entryTime }, ...history]);
+            const data = response.data;
+            setSuccess(`Entry confirmed! Under User ID ${data.userId} (${data.totalTicketsBooked} total ticket(s) booked). Marked at ${new Date(data.entryTime).toLocaleTimeString()}`);
+            setHistory([{ eventId: selectedEventId, ticketCode, time: data.entryTime }, ...history]);
             setTicketCode(''); // Reset for next person
         } catch (err) {
             setError(err);

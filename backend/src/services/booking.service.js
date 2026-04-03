@@ -61,7 +61,7 @@ class BookingService {
 
     static async getBookingsByUser(userId) {
         const [rows] = await pool.query(
-            'SELECT b.*, e.title as event_title, e.event_date FROM bookings b JOIN events e ON b.event_id = e.id WHERE b.user_id = ?',
+            'SELECT b.*, e.title as event_title, e.date FROM bookings b JOIN events e ON b.event_id = e.id WHERE b.user_id = ?',
             [userId]
         );
         return rows;
@@ -69,7 +69,7 @@ class BookingService {
 
     static async getBookingForAttendance(ticketCode, eventId) {
         const [rows] = await pool.query(
-            'SELECT b.id, b.ticket_code, b.event_id FROM bookings b WHERE b.ticket_code = ? AND b.event_id = ?',
+            'SELECT b.id, b.ticket_code, b.event_id, b.user_id FROM bookings b WHERE b.ticket_code = ? AND b.event_id = ?',
             [ticketCode, eventId]
         );
         return rows[0];

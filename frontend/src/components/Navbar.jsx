@@ -23,17 +23,17 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2 sm:gap-6">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-2 text-sm font-medium transition-all hover:text-white ${
+              className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium transition-all hover:text-white ${
                 location.pathname === item.path ? 'text-white' : 'text-slate-400'
               }`}
             >
               <item.icon className={`w-4 h-4 ${location.pathname === item.path ? 'text-primary' : ''}`} />
-              {item.name}
+              <span className="hidden sm:inline">{item.name}</span>
               {location.pathname === item.path && (
                 <div className="absolute -bottom-4 left-0 right-0 h-0.5 bg-primary animate-pulse" />
               )}
@@ -41,8 +41,8 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col items-end mr-2">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex-col items-end mr-2 hidden md:flex">
             <span className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Simulated User</span>
             <span className="text-xs text-white font-medium">John Doe (ID: 1)</span>
           </div>

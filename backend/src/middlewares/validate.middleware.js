@@ -14,7 +14,7 @@ const validate = (req, res, next) => {
 const eventValidation = [
     body('title').notEmpty().withMessage('Title is required').isString(),
     body('description').optional().isString(),
-    body('event_date').notEmpty().withMessage('Event date is required').isISO8601(),
+    body('date').notEmpty().withMessage('Event date is required').isISO8601(),
     body('total_capacity').notEmpty().isInt({ min: 1 }).withMessage('Total capacity must be at least 1'),
     validate
 ];
