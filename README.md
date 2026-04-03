@@ -25,6 +25,7 @@ This project features a robust **Node.js/Express** backend serving a sleek, dark
 - **RESTful Architecture**: Clean, scalable separation of Routes, Controllers, and Services.
 - **Interactive Documentation**: Beautiful Swagger UI for easy API exploration.
 - **Modern Glassmorphism UI**: A premium user interface built with Vite, Tailwind CSS, and Framer Motion.
+- **Fully Responsive (Any Device)**: UI automatically scales layouts perfectly from massive desktop monitors down to mobile smartphones smoothly and flexibly.
 - **Role Simulation**: Fully modeled database schema to handle Users, Events, Bookings, and Attendance Check-ins.
 
 ---
