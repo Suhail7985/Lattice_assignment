@@ -28,21 +28,6 @@ const { bookingValidation } = require('../middlewares/validate.middleware');
  */
 router.post('/', bookingValidation, BookingController.createBooking);
 
-/**
- * @swagger
- * /bookings/user/{user_id}:
- *   get:
- *     summary: Get all bookings for a specific user
- *     parameters:
- *       - in: path
- *         name: user_id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: A list of user's bookings.
- */
-router.get('/user/:user_id', BookingController.getBookingsByUser);
+
 
 module.exports = router;

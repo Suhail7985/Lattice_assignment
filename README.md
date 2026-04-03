@@ -63,7 +63,28 @@ The project is structured as a monorepo containing both the backend API and the 
 
 Follow these instructions to run the application locally on your machine.
 
-### Prerequisites
+### 🐳 Option 1: Docker (One-Click Deployment) - *Recommended*
+If you have Docker and Docker Compose installed, you can spin up the entire Full-Stack architecture (Frontend, Backend, and Database) with a single command. 
+
+1. Ensure Docker daemon is running on your machine.
+2. In the root directory of the project, run:
+   ```bash
+   docker-compose up --build
+   ```
+3. The system will automatically construct the containers, initialize the database schema, and map the ports out to your local machine.
+   - **Frontend UI**: [http://localhost:80](http://localhost:80)
+   - **Backend API**: [http://localhost:5000](http://localhost:5000)
+   - **API Docs**: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+   
+*Note: The frontend is statically built and served efficiently via NGINX proxy within the container.*
+
+---
+
+### 💻 Option 2: Local Manual Setup
+
+If you prefer to run the components independently:
+
+#### Prerequisites
 - **Node.js** (v18+)
 - **MySQL** (Running locally on port `3306`)
 

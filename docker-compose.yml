@@ -29,5 +29,14 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend
+    container_name: event-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   db_data:
