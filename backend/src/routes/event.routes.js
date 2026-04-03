@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const EventController = require('../controllers/event.controller');
-const { eventValidation } = require('../middlewares/validate.middleware');
+const AttendanceController = require('../controllers/attendance.controller');
+const { eventValidation, attendanceValidation } = require('../middlewares/validate.middleware');
 
 /**
  * @swagger
@@ -70,5 +71,33 @@ router.post('/', eventValidation, EventController.createEvent);
  *         description: Event not found.
  */
 router.get('/:id', EventController.getEventById);
+
+/**
+ * @swagger
+ * /events/{id}/attendance:
+ *   post:
+ *     summary: Mark attendance for an event using a ticket code
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ticket_code:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Attendance marked successfully.
+ *       400:
+ *         description: Invalid code or already marked.
+ */
+router.post('/:id/attendance', attendanceValidation, AttendanceController.markAttendance);
 
 module.exports = router;

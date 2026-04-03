@@ -13,7 +13,7 @@ class BookingController {
 
     static async getBookingsByUser(req, res, next) {
         try {
-            const bookings = await BookingService.getBookingsByUser(req.params.user_id);
+            const bookings = await BookingService.getBookingsByUser(req.params.id);
             res.status(200).json({ success: true, count: bookings.length, data: bookings });
         } catch (error) {
             next(error);

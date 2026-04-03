@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 // Import Routes
 const eventRoutes = require('./routes/event.routes');
 const bookingRoutes = require('./routes/booking.routes');
-const attendanceRoutes = require('./routes/attendance.routes');
+const userRoutes = require('./routes/user.routes');
 
 // Import Middlewares
 const { errorHandler } = require('./middlewares/error.middleware');
@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/events', eventRoutes);
 app.use('/bookings', bookingRoutes);
-app.use('/attendance', attendanceRoutes);
+app.use('/users', userRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
